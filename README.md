@@ -1,6 +1,6 @@
 # shadertoy-polar-coordinates
 
-A simple shader that demonstrates the use of polar coordinates in shaders.
+A simple shader that demonstrates the use of polar coordinates.
 
 Deploys to [GitHub Pages](https://modster.github.io/shadertoy-polar-coordinates/) when pushed to the main branch.
 
