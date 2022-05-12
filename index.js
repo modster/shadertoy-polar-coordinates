@@ -1,4 +1,4 @@
-"use strict";
+
 /**
  * Credit is given to the following people for their work:
  * https://github.com/gfxfundamentals/webgl2-fundamentals/graphs/contributors
@@ -34,18 +34,20 @@ function main() {
    precision highp float;
 
    uniform vec2 iResolution;
+   uniform vec2 iMouse;
+   uniform float iTime;
 
    void mainImage( out vec4 fragColor, in vec2 fragCoord )
    {
 
-       vec2 uv = (fragCoord.xy-.5*iResolution.xy) / iResolution.y;
-       vec2 st = vec2(atan(uv.x, uv.y), length(uv));
-       uv = vec2 (st.x/6.2831+.5, st.y);
-       float x = uv.x*50.;
-       float m = min(fract(x), fract(1.-x));
-       float c = smoothstep(0., .1, m*.3+.2-uv.y);
+    vec2 uv = (fragCoord.xy-.5*iResolution.xy) / iResolution.y;
+    vec2 st = vec2(atan(uv.x, uv.y), length(uv)*0.8);
+    uv = vec2 (st.x/6.2831+.5, st.y);
+    float x = uv.x*300.-0.5*iTime*0.9;
+    float m = min(fract(x), fract(1.-x));
+    float c = smoothstep(0.8, 1., m*1.8+0.5-uv.y);
 
-       fragColor = vec4(c);
+    fragColor = vec4(c);
    }
 
    out vec4 outColor;
@@ -63,7 +65,8 @@ function main() {
 
   // look up uniform locations
   const resolutionLocation = gl.getUniformLocation(program, "iResolution");
-
+  const mouseLocation = gl.getUniformLocation(program, "iMouse");
+  const timeLocation = gl.getUniformLocation(program, "iTime");
 
   // Create a vertex array object (attribute state)
   const vao = gl.createVertexArray();
